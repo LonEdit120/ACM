@@ -1,7 +1,7 @@
 #include <iostream>
 #include <string>
 
-using namesapce std;
+using namespace std;
 
 int main()
 {
@@ -10,21 +10,72 @@ int main()
 	stop = "ENDOFINPUT";
 	start = "START";
 	end = "END";
-	int input[200];
-	int count = 0;
-	int x = 'A'-1;
-	while(s != stop)
+	int i;
+	int num;
+	char c;
+	while(1)
 	{
-		int x = 'A'-1;
-		char A;
 		getline(cin, s);
-		if(s = start && s != stop)
+		if(s == stop)
 		{
-			while(s != end && s != stop)
+			break;
+		}
+		else if(s == start || s == end)
+		{
+			continue;
+		}
+		else
+		{
+			for(i=0; i<s.length(); i++)
 			{
-				count++;
-				
+				if(s[i] >= 'A' && s[i] <= 'Z')
+				{
+					num = s[i];
+					if(num-5 < 'A')
+					{
+						num = num+21;
+					}
+					else
+					{
+						num = num-5;
+					}
+					c = num;
+					cout << c;
+				}
+				else
+				{
+					cout << s[i];
+				}	
 			}
-		} 
+			cout << endl;
+		}
 	}
 }
+/*
+{
+			getline(cin, s);
+			if(s == stop)
+			{
+				break;
+			}
+			while(s != end)
+			{
+				getline(cin, s);
+				for(i=0; i<s.length(); i++)
+				{
+					num = s[i];
+					if(num-5 < 'A')
+					{
+						num = num+21;
+					}
+					else
+					{
+						num = num-5;
+					}
+					c = num;
+					cout << c;
+				}
+				cout << endl;			
+			}
+		} 
+		*/
