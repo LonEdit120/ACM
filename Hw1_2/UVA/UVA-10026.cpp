@@ -43,7 +43,20 @@ int main()
 				if(i != lines-1)	
 					cout << r[i].locate+1 << " ";
 				else
+				{
 					cout << r[i].locate+1 << endl;
+					if(count != cases)
+					{
+						cout << endl;
+					}
+				}
+			}
+			for(i=0; i<1001; i++)
+			{
+				days[i]=0;
+				fine[i]=0;
+				r[i].rate=0;
+				r[i].locate=0;
 			}
 		}
 	}
