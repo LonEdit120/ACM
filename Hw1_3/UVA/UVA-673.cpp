@@ -1,66 +1,90 @@
 #include <iostream>
+#include <stack>
 #include <string>
 #include <cstdio>
+
 using namespace std;
 
 int main()
 {
 	int cases;
-	int i;
+	stack<char> stk;
 	string s;
+	char c = ' ';
+	int count = 0;
 	cin >> cases;
 	getchar();
-	char c;
-	int count = 0;
-	int x = 0;
-	int y = 0;
-	while(count++ != cases)
+	while(count != cases)
 	{
-		x = 0;
-		y = 0;
-		getline(cin, s);
-		for(i=0; i < s.length(); i++)
+		count++;
+		while(!stk.empty())
 		{
-			if(x<0 || y<0)
-			{
-				break;
-			}
-			else if(i>=1 && s[i-1] == '(' && s[i] == ']')
-			{
-				break;
-			}
-			else if(i>=1 && s[i-1] == '[' && s[i] == ')')
-			{
-				break;
-			}
-			else if(s[i] == '(')
-			{
-				x = x + 1;
-			}
-			else if(s[i] == ')')
-			{
-				x = x - 1;
-			}
-			else if(s[i] == '[')
-			{
-				y = y + 1;
-			}
-			else if(s[i] == ']')
-			{
-				y = y - 1;
-			}
-			else continue;
+			stk.pop();
 		}
-		if(x == 0 && y == 0)
+		while(1)
 		{
-			//cout << s <<endl;
-			cout << "Yes" << endl;
-		}
-		else
-		{
-			//cout << s <<endl;
-			//cout << "Case" << count <<".x="<<x<<".y="<<y<<endl;
-			cout << "No" << endl;
+			c = getchar();
+			if(c != ' ' && c != '\n')
+			{
+				if(stk.empty())
+				{
+					stk.push(c);
+				}
+				else if(!stk.empty())
+				{
+					if(c == ')' && stk.top() == '[')
+					{
+						cout << "No" << endl;
+						while(c != '\n' && c != EOF)
+						{
+							c = getchar();
+						}
+						while(!stk.empty())
+						{
+							//cout << stk.top() << endl;
+							stk.pop();
+						}
+						break;
+					}
+					else if(c == ']' && stk.top() == '(')
+					{
+						cout << "No" << endl;
+						while(c != '\n' && c != EOF)
+						{
+							c = getchar();
+						}
+						while(!stk.empty())
+						{
+							//cout << stk.top() << endl;
+							stk.pop();
+						}
+						break;
+					}
+					else if(c == ')' && stk.top() == '(')
+						stk.pop();
+					else if(c == ']' && stk.top() == '[')
+						stk.pop();
+					else
+						stk.push(c);
+				}
+			}
+			else if(c == '\n')
+			{
+				if(!stk.empty())
+				{
+					cout << "No" << endl;
+					while(!stk.empty())
+					{
+						//cout << stk.top() << endl;
+						stk.pop();
+					}
+				}
+				else if(stk.empty())
+					cout << "Yes" << endl;
+				else
+					cout << "WTF" << endl;
+				break;
+			}
 		}
 	}
 }
