@@ -32,9 +32,9 @@ int main()
 	int m, n;
 	int count = 0;
 	/*pair<string, int> p;
-	pair<string, int>::iterator it;
+	pair<string, int>::iterator it;*/
 	vector<pair<string, int> > v;
-	vector<pair<string, int> >::iterator vit;*/
+	vector<pair<string, int> >::iterator vit;
 	while(1)
 	{
 		cin >> num >> predator;

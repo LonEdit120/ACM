@@ -11,7 +11,7 @@ ACM HW2-3
 UVA 879(87) 10685 11987
 POJ 1703
 
-<<<<<Finished>>>>>
+<<<<<Finished>>>>> 4
 ACM HW2-1
 UVA 352 532
 POJ 
@@ -23,5 +23,3 @@ POJ
 ACM HW2-3
 UVA 10583 793
 POJ
-2388
-2371
