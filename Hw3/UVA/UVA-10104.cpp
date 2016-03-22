@@ -2,7 +2,27 @@
 
 using namespace std;
 
-int gcd(int a, int b)
+int x, y;
+
+int exGCD(int a, int b)
+{
+	if(b == 0)
+	{
+		x = 1;
+		y = 0;
+		return a;
+	}
+	else
+	{
+		int gcd = exGCD(b, a % b);
+		int temp = x;
+		x = y;
+		y = temp - (a/b)*y;
+		return gcd;
+	}
+}
+
+/*int gcd(int a, int b)
 {
 	int temp;
 	while(a != 0 && b != 0)
@@ -19,15 +39,14 @@ int gcd(int a, int b)
 	{
 		return b;
 	}
-}
+}*/
 
 int main()
 {
 	int a, b;
-	int x, y;
 	int d;
 	while(cin >> a >> b)
 	{
-		d = gcd(a, b);
+		cout << x << " " << y << " " << exGCD(a, b) << endl;
 	}
 }
