@@ -1,21 +1,24 @@
-#include <iostream>
 #include <cstdio>
 #include <algorithm>
 #include <cstring>
 #define INF 200000000
 using namespace std;
 
-int flow[205][205] = {{0}};
-int cap[205][205] = {{0}};
-int v[205] = {0};
-int pa[205] = {0};
+int flow[205][205];
+int cap[205][205];
+bool v[205];
+int pa[205];
+int nodes, cases;
+int B,D;
+int m,n;
+int temp;
+int fuckingshit;
 bool DFS(int cur, int t, int n)
 {
-	int i;
-	v[cur] = 1;
+	v[cur] = true;
 	if(cur == t)
 		return true;
-	for(i = 0; i<=n; i++)
+	for(int i = 0; i<=n; ++i)
 	{
 		if(v[i])
 			continue;
@@ -28,12 +31,11 @@ bool DFS(int cur, int t, int n)
 	}
 	return false;
 }
-
-int FindFlow(int s, int t, int n)
+int FindFlow(int s, int t)
 {
-	int i, pre;
+	int pre;
 	int f = INF;
-	for(i=t; i!=s; i=pa[i])
+	for(int i=t; i!=s; i=pa[i])
 	{
 		pre = pa[i];
 		if(cap[pre][i] - flow[pre][i]>0)
@@ -41,7 +43,7 @@ int FindFlow(int s, int t, int n)
 		else
 			f= min(f, flow[i][pre]);
 	}
-	for(i=t; i!=s; i=pa[i])
+	for(int i=t; i!=s; i=pa[i])
 	{
 		pre = pa[i];
 		if(cap[pre][i] - flow[pre][i]>0)
@@ -57,54 +59,44 @@ int FordFulkerson(int n)
 	int ret = 0;
 	while(1)
 	{
-		memset(v,0,sizeof(v));
-		if(!DFS(0,n,n))
+		memset(v,false,sizeof(v));
+		if(!DFS(0,(n<<1)+1,(n<<1)+2))
 			break;
-		ret += FindFlow(0,n,n);
+		ret += FindFlow(0,(n<<1)+1);
 	}
 	return ret;
 }
 
 int main()
 {
-	int nodes, cases;
-	int i, j;
-	int B,D;
-	int m,n;
-	int temp;
-	while(cin >> nodes)
+	while(scanf("%d",&nodes) != EOF)
 	{
-		for(i=1; i<=nodes; i++)
+		memset(cap,0,sizeof(cap));
+		memset(flow,0,sizeof(flow));
+		for(int i=1; i<=nodes; ++i)
 		{
-			cin >> cap[i][nodes+i];
+			scanf("%d",&cap[i][nodes+i]);
 		}
-		cin >> cases;
-		for(i=0; i<cases; i++)
+		scanf("%d",&cases);
+		for(int i=0; i<cases; ++i)
 		{
-			cin >> m >> n;
-			cin >> cap[nodes+m][n];
+			/*scanf("%d%d",&m,&n);
+			scanf("%d",&cap[nodes+m][n]);*/
+			scanf("%d%d%d", &m, &n, &fuckingshit);
+			cap[m + nodes][n] = fuckingshit;
 		}
-		cin >> B >> D;
-		for(i=0; i<B; i++)
+		scanf("%d%d",&B,&D);
+		while(B--)
 		{
-			cin >> temp;
+			scanf("%d",&temp);
 			cap[0][temp] = INF;
 		}
-		for(i=0; i<D; i++)
+		while(D--)
 		{
-			cin >> temp;
-			cap[temp][nodes*2+1] = INF;
+			scanf("%d",&temp);
+			cap[temp+nodes][(nodes<<1)+1] = INF;
 		}
-		cout << FordFulkerson(nodes*2+1) << endl;
-		for(i=0; i<205; i++)
-		{
-			for(j=0; j<205; j++)
-			{
-				cap[i][j] = 0;
-				flow[i][j] = 0;
-			}
-			v[i] = 0;
-			pa[i] = 0;
-		}
+		printf("%d\n",FordFulkerson(nodes));
 	}
+	return 0;
 }
