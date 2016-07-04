@@ -75,30 +75,18 @@ int main()
 		//cout << "A1 : " << A1 << endl;
 		//poly-------------------------------
 		cnt = 0;
-		prepre = point[0];
-		pre = point[1];
-		for(int j=0; j<num; ++j)
+		for(int i = 0 ; i < num ; ++i)
 		{
-			X = point[j].x;
-			Y = point[j].y;
-			//while(cnt>=2 && ((pre.x - prepre.x)*(Y-prepre.y)-(pre.y - prepre.y)*(X-prepre.x))<=0)
-			while(cnt >= 2)
-			{
-				//cout << "WHILE : " << cnt << endl;
-				pre = poly[cnt-1];
-				prepre = poly[cnt-2];
-				if(((pre.x - prepre.x)*(Y-prepre.y)-(pre.y - prepre.y)*(X-prepre.x))<=0)
-					cnt--;
-				else break;
-			}
-			poly[cnt++] = point[j];
-		}
+			while(cnt >= 2 && (poly[cnt-1].x-poly[cnt-2].x)*(point[i].y-poly[cnt-2].y)-(poly[cnt-1].y-poly[cnt-2].y)*(point[i].x-poly[cnt-2].x) <= 0)
+				--cnt;
+			poly[cnt++] = point[i];
+		}	
 		sort(poly,poly+cnt,cmp);
 		sort(poly+1,poly+cnt,cmp3);
-		for(int i=0; i<cnt; ++i)
+		/*for(int i=0; i<cnt; ++i)
 		{
 			cout << poly[i].x << "," << poly[i].y << endl;
-		}
+		}*/
 		//poly-------------------------------
 		
 		A2 = 0;
