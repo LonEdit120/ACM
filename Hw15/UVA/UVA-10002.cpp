@@ -54,7 +54,8 @@ int main()
 			cout << "POINT2[" << i << "] : " << point2[i].x << "," << point2[i].y << endl;
 		}*/
 		//poly---------------------------------
-		prepre = point2[0];
+		cnt = 0;
+		/*prepre = point2[0];
 		pre = point2[1];
 		for(int j=0; j<num; ++j)
 		{
@@ -69,8 +70,14 @@ int main()
 				else break;
 			}
 			point[cnt++] = point2[j];
-		}
-
+		}*/
+		for(int i = 0 ; i < num ; ++i)
+		{
+			//while(cnt >= 2 && (point[cnt-1]-point[cnt-2]).cross(point2[i]-point[cnt-2]) <= 0)
+			while(cnt >= 2 && (point[cnt-1].x-point[cnt-2].x)*(point2[i].y-point[cnt-2].y)-(point[cnt-1].y-point[cnt-2].y)*(point2[i].x-point[cnt-2].x) <= 0)
+				--cnt;
+			point[cnt++] = point2[i];
+		}	
 
 		sort(point,point+cnt,cmp);
 		sort(point+1,point+cnt,cmp2);
