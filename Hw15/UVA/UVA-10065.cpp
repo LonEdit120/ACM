@@ -29,6 +29,16 @@ bool cmp2(P a, P b)
 	return angle > 0 || (!angle && sqrt(pow(ax,2)+pow(ay,2)) < sqrt(pow(bx,2)+pow(by,2)));
 }
 
+bool cmp3(P a, P b)
+{
+	double ax = a.x-poly[0].x;
+	double bx = b.x-poly[0].x;
+	double ay = a.y-poly[0].y;
+	double by = b.y-poly[0].y;
+	double angle = ax*by-ay*bx;
+	return angle > 0 || (!angle && sqrt(pow(ax,2)+pow(ay,2)) < sqrt(pow(bx,2)+pow(by,2)));
+}
+
 int main()
 {
 	int num;
@@ -65,7 +75,7 @@ int main()
 		//cout << "A1 : " << A1 << endl;
 		//poly-------------------------------
 		cnt = 0;
-		/*prepre = point[0];
+		prepre = point[0];
 		pre = point[1];
 		for(int j=0; j<num; ++j)
 		{
@@ -82,20 +92,13 @@ int main()
 				else break;
 			}
 			poly[cnt++] = point[j];
-		}*/
-		for(int i = 0 ; i < num ; ++i)
-		{
-			//while(cnt >= 2 && (point[cnt-1]-point[cnt-2]).cross(point2[i]-point[cnt-2]) <= 0)
-			while(cnt >= 2 && (point[cnt-1].x-point[cnt-2].x)*(point2[i].y-point[cnt-2].y)-(point[cnt-1].y-point[cnt-2].y)*(point2[i].x-point[cnt-2].x) <= 0)
-				--cnt;
-			point[cnt++] = point2[i];
 		}
 		sort(poly,poly+cnt,cmp);
-		sort(poly+1,poly+cnt,cmp2);
-		/*for(int i=0; i<cnt; ++i)
+		sort(poly+1,poly+cnt,cmp3);
+		for(int i=0; i<cnt; ++i)
 		{
 			cout << poly[i].x << "," << poly[i].y << endl;
-		}*/
+		}
 		//poly-------------------------------
 		
 		A2 = 0;

@@ -14,18 +14,19 @@ double plane[1100] = {0};
 
 bool cmp(P a, P b)
 {
-	if (a.y != b.y)
+	if (a.x != b.x)
+		return (a.x<b.x);
+	else if (a.x == b.x)
 		return (a.y < b.y);
-	else
-		return (a.x < b.x);
 }
 
 bool cmp2(P a, P b)
 {
-	double ax = a.x-point[0].x;
-	double bx = b.x-point[0].x;
-	double ay = a.y-point[0].y;
-	double by = b.y-point[0].y;
+	double ax = a.x-point2[0].x;
+	double ay = a.y-point2[0].y;
+
+	double bx = b.x-point2[0].x;
+	double by = b.y-point2[0].y;
 	double angle = ax*by-ay*bx;
 	return angle > 0 || (!angle && sqrt(pow(ax,2)+pow(ay,2)) < sqrt(pow(bx,2)+pow(by,2)));
 }
@@ -45,8 +46,17 @@ int main()
 		{
 			cin >> point2[i].x >> point2[i].y;
 		}
-
+		/*for(int i=0; i<num; ++i)
+		{
+			cout << "POINT2[" << i << "] : " << point2[i].x << "," << point2[i].y << endl;
+		}*/
+		//cout << "======" << endl;
 		sort(point2,point2+num,cmp);
+		/*for(int i=0; i<num; ++i)
+		{
+			cout << "POINT2[" << i << "] : " << point2[i].x << "," << point2[i].y << endl;
+		}*/
+		//cout << "======" << endl;
 		sort(point2+1,point2+num,cmp2);
 
 		/*for(int i=0; i<num; ++i)
@@ -55,25 +65,9 @@ int main()
 		}*/
 		//poly---------------------------------
 		cnt = 0;
-		/*prepre = point2[0];
-		pre = point2[1];
-		for(int j=0; j<num; ++j)
-		{
-			X = point2[j].x;
-			Y = point2[j].y;
-			while(cnt >= 2)
-			{
-				pre = point[cnt-1];
-				prepre = point[cnt-2];
-				if(((pre.x - prepre.x)*(Y-prepre.y)-(pre.y - prepre.y)*(X-prepre.x))<=0)
-					cnt--;
-				else break;
-			}
-			point[cnt++] = point2[j];
-		}*/
+		
 		for(int i = 0 ; i < num ; ++i)
 		{
-			//while(cnt >= 2 && (point[cnt-1]-point[cnt-2]).cross(point2[i]-point[cnt-2]) <= 0)
 			while(cnt >= 2 && (point[cnt-1].x-point[cnt-2].x)*(point2[i].y-point[cnt-2].y)-(point[cnt-1].y-point[cnt-2].y)*(point2[i].x-point[cnt-2].x) <= 0)
 				--cnt;
 			point[cnt++] = point2[i];
