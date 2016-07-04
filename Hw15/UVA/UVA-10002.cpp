@@ -107,7 +107,7 @@ int main()
 		//cout << "========================" << endl;
 		for(int i=0; i+1<cnt-1; ++i)
 		{
-			plane[i] = fabs(vec[i].x*vec[i+1].y - vec[i+1].x*vec[i].y)/2;
+			plane[i] = (vec[i].x*vec[i+1].y - vec[i+1].x*vec[i].y)/2;
 			//cout << "PLANE[" << i << "] : " << plane[i] << endl;
 		}
 
@@ -123,7 +123,7 @@ int main()
 		A = 0;
 		for(int i = 0; i+1<cnt-1; ++i)
 		{
-			A += fabs((vec[i].x*vec[i+1].y - vec[i+1].x*vec[i].y)/2);
+			A += ((vec[i].x*vec[i+1].y - vec[i+1].x*vec[i].y)/2);
 			//cout << "+" << ((vec[i].x*vec[i+1].y - vec[i+1].x*vec[i].y)/2) << endl;
 		}
 		//cout << "A : " << A << " unit size"<< endl;
