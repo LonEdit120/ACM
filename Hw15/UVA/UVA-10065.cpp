@@ -14,16 +14,17 @@ struct P
 bool cmp(P a, P b)
 {
 	if (a.x != b.x)
-		return (a.x < b.x);
-	else
+		return (a.x<b.x);
+	else if (a.x == b.x)
 		return (a.y < b.y);
 }
 
 bool cmp2(P a, P b)
 {
 	double ax = a.x-point[0].x;
-	double bx = b.x-point[0].x;
 	double ay = a.y-point[0].y;
+
+	double bx = b.x-point[0].x;
 	double by = b.y-point[0].y;
 	double angle = ax*by-ay*bx;
 	return angle > 0 || (!angle && sqrt(pow(ax,2)+pow(ay,2)) < sqrt(pow(bx,2)+pow(by,2)));
@@ -72,7 +73,7 @@ int main()
 			A1 += (x1*y2 - x2*y1)/2;
 			//cout << i << "," << i+1 << " = (" << x1 << "*" << y2 << " - " << x2 << "*" << y1 << ")/2 = "<< (x1*y2 - x2*y1)/2  << endl;
 		}
-		//cout << "A1 : " << A1 << endl;
+		//cout << "minimum : " << A1 << endl;
 		//poly-------------------------------
 		cnt = 0;
 		for(int i = 0 ; i < num ; ++i)
@@ -81,8 +82,8 @@ int main()
 				--cnt;
 			poly[cnt++] = point[i];
 		}	
-		sort(poly,poly+cnt,cmp);
-		sort(poly+1,poly+cnt,cmp3);
+		/*sort(poly,poly+cnt,cmp);
+		sort(poly+1,poly+cnt,cmp3);*/
 		/*for(int i=0; i<cnt; ++i)
 		{
 			cout << poly[i].x << "," << poly[i].y << endl;
@@ -99,7 +100,7 @@ int main()
 			A2 += (x1*y2 - x2*y1)/2;
 			//cout << i << "," << i+1 << " = (" << x1 << "*" << y2 << " - " << x2 << "*" << y1 << ")/2 = "<< (x1*y2 - x2*y1)/2  << endl;
 		}
-		//cout << "A2 : " << A2 << endl;
+		//cout << "container : " << A2 << endl;
 		per = ((A2-A1)/A2)*100;
 		cout << "Tile #" << cases << endl;
 		printf("Wasted Space = %.2f ", per);
