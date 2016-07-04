@@ -1,19 +1,21 @@
 #include <stack>
 #include <iostream>
 #include <algorithm>
+#include <cstdio>
+#include <cmath>
 using namespace std;
 
 struct P
 {
-	int x;
-	int y;
-}point[520], pre, prepre, temp, stk[520], stk2[520];
+	double x;
+	double y;
+}point[1000], pre, prepre, temp, stk[1000], stk2[1000];
 
 bool cmpto(P a, P b)
 {
 	if (a.x != b.x)
 		return (a.x<b.x);
-	else if (a.x == b.x)
+	else
 		return (a.y < b.y);
 }
 
@@ -21,25 +23,26 @@ bool cmpfrom(P a, P b)
 {
 	if (a.x != b.x)
 		return (a.x>b.x);
-	else if (a.x == b.x)
+	else
 		return (a.y > b.y);
 }
 
 int main()
 {
 	int X, Y;
-	int cases;
 	int points;
-	int trash;
-	int cnt, cnt2;
+	int cnt;
 	int temp;
-	cin >> cases;
-	cout << cases << endl;
-	for(int i=0; i<cases; ++i)
+	int region = 0;
+	double para;
+	while(cin >> points)
 	{
-		if(i!=0)
-			cout << "-1" << endl;
-		cin >> points;
+		++region;
+		
+		if(points == 0)
+			break;
+		if(region!=1)
+			cout << endl;
 		for(int j=0; j<points; ++j)
 		{
 			cin >> point[j].x >> point[j].y;
@@ -59,7 +62,7 @@ int main()
 				//cout << "WHILE : " << cnt << endl;
 				pre = stk[cnt-1];
 				prepre = stk[cnt-2];
-				if(((pre.x - prepre.x)*(Y-prepre.y)-(pre.y - prepre.y)*(X-prepre.x))<=0)
+				if(((pre.x - prepre.x)*(Y-prepre.y)-(pre.y - prepre.y)*(X-prepre.x))>=0)
 					cnt--;
 				else break;
 			}
@@ -79,7 +82,7 @@ int main()
 				//cout << "WHILE : " << cnt << endl;
 				pre = stk[cnt-1];
 				prepre = stk[cnt-2];
-				if(((pre.x - prepre.x)*(Y-prepre.y)-(pre.y - prepre.y)*(X-prepre.x))<=0)
+				if(((pre.x - prepre.x)*(Y-prepre.y)-(pre.y - prepre.y)*(X-prepre.x))>=0)
 					cnt--;
 				else break;
 			}
@@ -88,7 +91,6 @@ int main()
 		}
 		
 		///////////////////////////////////////////////////////
-		cout << cnt << endl;
 		int min = 2130000000;
 		for(int j=0; j<cnt-1; ++j)
 		{
@@ -108,10 +110,19 @@ int main()
 			stk2[j+cnt-temp-1] = stk[j];
 		}
 		stk2[cnt-1] = stk2[0];
+		cout << "Region #" << region << ":" << endl;
 		for(int j=0; j<cnt; ++j)
 		{
-			cout << stk2[j].x << " " << stk2[j].y << endl;
+			if(j != cnt-1)
+				printf("(%.1lf,%.1lf)-",stk2[j].x,stk2[j].y);
+			else
+				printf("(%.1lf,%.1lf)\n",stk2[j].x,stk2[j].y);
 		}
-		cin >> trash;
+		para = 0;
+		for(int j=0; j<cnt-1; ++j)
+		{
+			para += sqrt(pow(stk2[j].x-stk2[j+1].x,2)+pow(stk2[j].y-stk2[j+1].y,2));
+		}
+		printf("Perimeter length = %.2lf\n",para);
 	}
 }
